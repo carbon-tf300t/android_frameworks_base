@@ -32,10 +32,23 @@ public class VolumeToggle extends BaseToggle {
 
     @Override
     public boolean onLongClick(View v) {
-        dismissKeyguard();
-        collapseStatusBar();
-        startActivity(new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS));
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            dismissKeyguard();
+            collapseStatusBar();
+            return super.onLongClick(v);
+        } else {
+            dismissKeyguard();
+            collapseStatusBar();
+            startActivity(new Intent(android.provider.Settings.ACTION_SOUND_SETTINGS));
+            return super.onLongClick(v);
+        }
     }
 
 }

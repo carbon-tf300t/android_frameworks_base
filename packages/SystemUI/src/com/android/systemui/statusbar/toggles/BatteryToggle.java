@@ -28,13 +28,34 @@ public class BatteryToggle extends BaseToggle implements BatteryStateChangeCallb
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(Intent.ACTION_POWER_USAGE_SUMMARY));
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_POWER_USAGE_SUMMARY);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+        } else {
+            startActivity(new Intent(Intent.ACTION_POWER_USAGE_SUMMARY));
+        }
     }
 
     @Override
     public boolean onLongClick(View v) {
-        startActivity(android.provider.Settings.ACTION_DREAM_SETTINGS);
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_DREAM_SETTINGS);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            startActivity(android.provider.Settings.ACTION_DREAM_SETTINGS);
+            return super.onLongClick(v);
+        }
     }
 
     @Override

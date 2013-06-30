@@ -30,13 +30,28 @@ public class UsbTetherToggle extends StatefulToggle {
 
     @Override
     public boolean onLongClick(View v) {
-        collapseStatusBar();
-        dismissKeyguard();
-        Intent intent = new Intent();
-        intent.setComponent(new ComponentName("com.android.settings",
-                "com.android.settings.Settings$TetherSettingsActivity"));
-        startActivity(intent);
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent();
+                intent.setComponent(new ComponentName("com.android.settings",
+                        "com.android.settings.Settings$TetherSettingsActivity"));
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            collapseStatusBar();
+            dismissKeyguard();
+            return super.onLongClick(v);
+        } else {
+            collapseStatusBar();
+            dismissKeyguard();
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("com.android.settings",
+                    "com.android.settings.Settings$TetherSettingsActivity"));
+            startActivity(intent);
+            return super.onLongClick(v);
+        }
     }
 
     @Override

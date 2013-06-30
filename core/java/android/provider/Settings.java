@@ -4510,6 +4510,13 @@ public final class Settings {
         public static final String SHADE_COLLAPSE_ALL = "shade_collapse_all";
 
         /**
+         * enable and disable launching shortcut intents in a floating window
+         *
+         * @hide
+         */
+        public static final String FLOAT_ON_CLICK = "float_on_click";
+
+        /**
          * User selected UI Mode
          * 
          *  0 = Phone UI

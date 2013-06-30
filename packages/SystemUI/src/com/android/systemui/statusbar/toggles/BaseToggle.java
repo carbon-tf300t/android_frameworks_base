@@ -38,6 +38,7 @@ public abstract class BaseToggle
     protected int mStyle;
 
     private boolean mCollapsePref;
+    public boolean mFloatPref;
     private Drawable mIconDrawable = null;
     private int mIconLevel = -1;
     private CharSequence mLabelText = null;
@@ -297,6 +298,8 @@ public abstract class BaseToggle
             cr.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SHADE_COLLAPSE_ALL), false, this);
             cr.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.FLOAT_ON_CLICK), false, this);
+            cr.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QUICK_SETTINGS_TEXT_COLOR), false, this);
 
             updateSettings();
@@ -313,6 +316,8 @@ public abstract class BaseToggle
 
         mCollapsePref = Settings.System.getBoolean(resolver,
                 Settings.System.SHADE_COLLAPSE_ALL, false);
+        mFloatPref = Settings.System.getBoolean(resolver,
+                Settings.System.FLOAT_ON_CLICK, false);
         mTextColor = Settings.System.getInt(resolver,
                 Settings.System.QUICK_SETTINGS_TEXT_COLOR, 0xFFFFFFFF);
     }

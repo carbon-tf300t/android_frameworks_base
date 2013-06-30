@@ -40,14 +40,28 @@ public class ProfileToggle extends BaseToggle {
 
     @Override
     public boolean onLongClick(View v) {
-        Intent intent = new Intent("android.intent.action.MAIN");
-        intent.setClassName("com.android.settings", "com.android.settings.Settings$ProfilesSettingsActivity");
-        intent.addCategory("android.intent.category.LAUNCHER");
-        
-        startActivity(intent);
-        collapseStatusBar();
-        dismissKeyguard();
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                intent.setClassName("com.android.settings", "com.android.settings.Settings$ProfilesSettingsActivity");
+                intent.addCategory("android.intent.category.LAUNCHER");
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                   // No intent found for activity component
+            }
+            collapseStatusBar();
+            dismissKeyguard();
+            return super.onLongClick(v);
+        } else {
+            Intent intent = new Intent("android.intent.action.MAIN");
+            intent.setClassName("com.android.settings", "com.android.settings.Settings$ProfilesSettingsActivity");
+            intent.addCategory("android.intent.category.LAUNCHER");
+            startActivity(intent);
+            collapseStatusBar();
+            dismissKeyguard();
+            return super.onLongClick(v);
+        }
     }
 
     private class ProfileReceiver extends BroadcastReceiver {

@@ -24,4 +24,28 @@ public class SleepToggle extends BaseToggle {
         pm.goToSleep(SystemClock.uptimeMillis());
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                intent.setClassName("com.android.settings", "com.android.settings.Settings$DisplaySettingsActivity");
+                intent.addCategory("android.intent.category.LAUNCHER");
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+                collapseStatusBar();
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            Intent intent = new Intent("android.intent.action.MAIN");
+            intent.setClassName("com.android.settings", "com.android.settings.Settings$DisplaySettingsActivity");
+            intent.addCategory("android.intent.category.LAUNCHER");
+            startActivity(intent);
+            collapseStatusBar();
+            return super.onLongClick(v);
+        }
+    }
+
 }

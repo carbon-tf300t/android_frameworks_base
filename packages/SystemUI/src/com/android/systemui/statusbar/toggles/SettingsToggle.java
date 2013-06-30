@@ -19,17 +19,38 @@ public class SettingsToggle extends BaseToggle {
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        collapseStatusBar();
-        dismissKeyguard();
-        startActivity(intent);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            collapseStatusBar();
+            dismissKeyguard();
+        } else {
+            Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            collapseStatusBar();
+            dismissKeyguard();
+            startActivity(intent);
+        }
     }
 
     @Override
     public boolean onLongClick(View v) {
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_SETTINGS);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            collapseStatusBar();
+            dismissKeyguard();
+            startActivity(intent);
+            return super.onLongClick(v);
+        } else {
+            return super.onLongClick(v);
+        }
     }
 
 }

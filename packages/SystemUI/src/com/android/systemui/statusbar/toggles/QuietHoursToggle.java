@@ -34,11 +34,24 @@ public class QuietHoursToggle extends StatefulToggle {
 
     @Override
     public boolean onLongClick(View v) {
-        Intent intent = new Intent("android.intent.action.MAIN");
-        intent.setClassName("com.android.settings", "com.android.settings.Settings$QuietHoursSettingsActivity");
-        intent.addCategory("android.intent.category.LAUNCHER");
-        startActivity(intent);
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                intent.setClassName("com.android.settings", "com.android.settings.Settings$QuietHoursSettingsActivity");
+                intent.addCategory("android.intent.category.LAUNCHER");
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            Intent intent = new Intent("android.intent.action.MAIN");
+            intent.setClassName("com.android.settings", "com.android.settings.Settings$QuietHoursSettingsActivity");
+            intent.addCategory("android.intent.category.LAUNCHER");
+            startActivity(intent);
+            return super.onLongClick(v);
+        }
     }
 
     @Override

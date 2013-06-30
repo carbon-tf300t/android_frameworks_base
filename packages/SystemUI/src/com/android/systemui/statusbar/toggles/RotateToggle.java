@@ -59,9 +59,20 @@ public class RotateToggle extends StatefulToggle {
 
     @Override
     public boolean onLongClick(View v) {
-        Intent intent = new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
-        startActivity(intent);
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            Intent intent = new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
+            startActivity(intent);
+            return super.onLongClick(v);
+        }
     }
 
 }

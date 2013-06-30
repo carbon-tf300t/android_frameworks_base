@@ -2,6 +2,7 @@
 package com.android.systemui.statusbar.toggles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.provider.Settings;
@@ -21,8 +22,19 @@ public class GpsToggle extends StatefulToggle implements LocationGpsStateChangeC
 
     @Override
     public boolean onLongClick(View v) {
-        startActivity(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            startActivity(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            return super.onLongClick(v);
+        }
     }
 
     @Override

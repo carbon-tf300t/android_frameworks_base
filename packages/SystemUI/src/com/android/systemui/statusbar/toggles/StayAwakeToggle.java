@@ -2,6 +2,7 @@ package com.android.systemui.statusbar.toggles;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.ContentObserver;
@@ -45,8 +46,19 @@ public class StayAwakeToggle extends StatefulToggle {
 
     @Override
     public boolean onLongClick(View v) {
-       startActivity(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
-       return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            startActivity(android.provider.Settings.ACTION_DISPLAY_SETTINGS);
+            return super.onLongClick(v);
+        }
     }
 
     @Override

@@ -58,6 +58,30 @@ public class WirelessAdbToggle extends StatefulToggle {
     }
 
     @Override
+    public boolean onLongClick(View v) {
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                intent.setClassName("com.android.settings", "com.android.settings.Settings$DevelopmentSettingsActivity");
+                intent.addCategory("android.intent.category.LAUNCHER");
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            collapseStatusBar();
+            return super.onLongClick(v);
+        } else {
+            Intent intent = new Intent("android.intent.action.MAIN");
+            intent.setClassName("com.android.settings", "com.android.settings.Settings$DevelopmentSettingsActivity");
+            intent.addCategory("android.intent.category.LAUNCHER");
+            startActivity(intent);
+            collapseStatusBar();
+            return super.onLongClick(v);
+        }
+    }
+
+    @Override
     public void updateView() {
         mAdbEnabled = Settings.Global.getInt(mContext.getContentResolver(),
                               Settings.Global.ADB_ENABLED, 0);

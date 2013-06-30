@@ -19,14 +19,23 @@ public class CarbonToggle extends BaseToggle {
 
     @Override
     public void onClick(View v) {
-        try {
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent("android.intent.action.MAIN");
+                intent.setClassName("com.android.settings", "com.android.settings.Settings$CarbonActivity");
+                intent.addCategory("android.intent.category.LAUNCHER");
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            collapseStatusBar();
+        } else {
             Intent intent = new Intent("android.intent.action.MAIN");
             intent.setClassName("com.android.settings", "com.android.settings.Settings$CarbonActivity");
             intent.addCategory("android.intent.category.LAUNCHER");
-            intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
             startActivity(intent);
             collapseStatusBar();
-        } catch(NullPointerException e) {
         }
     }
 

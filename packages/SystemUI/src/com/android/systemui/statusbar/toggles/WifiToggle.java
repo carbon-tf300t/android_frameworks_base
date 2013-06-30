@@ -47,8 +47,19 @@ public class WifiToggle extends StatefulToggle implements NetworkSignalChangedCa
 
     @Override
     public boolean onLongClick(View v) {
-        startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
-        return super.onLongClick(v);
+        if (mFloatPref) {
+            try {
+                Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                intent.addFlags(Intent.FLAG_FLOATING_WINDOW);
+                startActivity(intent);
+            } catch(NullPointerException e) {
+                // No intent found for activity component
+            }
+            return super.onLongClick(v);
+        } else {
+            startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+            return super.onLongClick(v);
+        }
     }
 
     @Override
