@@ -475,7 +475,7 @@ public class AokpSwipeRibbon extends LinearLayout {
             toggleMap.put(STATUSBAR_TOGGLE, StatusbarToggle.class);
             toggleMap.put(PIE_TOGGLE, PieToggle.class);
             toggleMap.put(CARBON_TOGGLE, CarbonToggle.class);
-            toggleMap.put(TRDS_TOGGLE, TRDSToggle.class);
+            toggleMap.put(DARK_TOGGLE, DarkToggle.class);
             toggleMap.put(POWERMENU_TOGGLE, PowerMenuToggle.class);
             toggleMap.put(SCREENSHOT_TOGGLE, ScreenshotToggle.class);
             toggleMap.put(CUSTOM_TOGGLE, CustomToggle.class);

@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.android.systemui.R;
 
-public class TRDSToggle extends StatefulToggle {
+public class DarkToggle extends StatefulToggle {
 
     @Override
     public void init(Context c, int style) {
@@ -45,9 +45,9 @@ public class TRDSToggle extends StatefulToggle {
         boolean enabled = Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Secure.UI_INVERTED_MODE, 1) == 2;
         setEnabledState(enabled);
-        setIcon(enabled ? R.drawable.ic_qs_trds_on : R.drawable.ic_qs_trds_off);
-        setLabel(enabled ? R.string.quick_settings_trds_on_label
-                : R.string.quick_settings_trds_off_label);
+        setIcon(enabled ? R.drawable.ic_qs_dark_on : R.drawable.ic_qs_dark_off);
+        setLabel(enabled ? R.string.quick_settings_dark_on_label
+                : R.string.quick_settings_dark_off_label);
         super.updateView();
     }
 
