@@ -80,6 +80,8 @@ import com.android.internal.policy.impl.keyguard.KeyguardViewMediator;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.telephony.ITelephony;
 import com.android.internal.widget.PointerLocationView;
+import static com.android.internal.util.carbon.AwesomeConstants.*;
+import com.android.systemui.carbon.AwesomeAction;
 
 import dalvik.system.DexClassLoader;
 
@@ -241,6 +243,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_CUSTOM_APP = 13;
     private static final int KEY_ACTION_CAMERA = 14;
     private static final int KEY_ACTION_QS = 15;
+    private static final int KEY_ACTION_WIDGETS = 16;
 
     // Masks for checking presence of hardware keys.
     // Must match values in core/res/res/values/config.xml
@@ -1245,6 +1248,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     break;
                 case KEY_ACTION_CAMERA:
                     triggerVirtualKeypress(KeyEvent.KEYCODE_CAMERA);
+                    break;
+                case KEY_ACTION_WIDGETS:
+                    AwesomeAction.launchAction(mContext, AwesomeConstant.ACTION_WIDGETS.value());
                     break;
                 default:
                     break;
