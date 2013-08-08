@@ -74,6 +74,7 @@ import android.provider.Settings;
 import com.android.internal.R;
 import com.android.internal.app.ThemeUtils;
 import com.android.internal.os.DeviceKeyHandler;
+import com.android.internal.os.IDeviceHandler;
 import com.android.internal.policy.PolicyManager;
 import com.android.internal.policy.impl.keyguard.KeyguardViewManager;
 import com.android.internal.policy.impl.keyguard.KeyguardViewMediator;
@@ -175,6 +176,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.lang.reflect.Constructor;
 
@@ -1498,6 +1500,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         String deviceKeyHandlerLib = mContext.getResources().getString(
                 com.android.internal.R.string.config_deviceKeyHandlerLib);
+                com.android.internal.R.string.config_deviceHandlersLib);
 
         String deviceKeyHandlerClass = mContext.getResources().getString(
                 com.android.internal.R.string.config_deviceKeyHandlerClass);

@@ -120,6 +120,10 @@ public final class BatteryService extends Binder {
     private int mInvalidCharger;
     /* End native fields. */
 
+    private int mDockBatteryStatus;
+    private int mDockBatteryLevel;
+    private String mDockBatteryPresent;
+
     private int mLastBatteryStatus;
     private int mLastBatteryHealth;
     private boolean mLastBatteryPresent;
@@ -142,6 +146,8 @@ public final class BatteryService extends Binder {
     private int mLowBatteryWarningLevel;
     private int mLowBatteryCloseWarningLevel;
     private int mShutdownBatteryTemperature;
+
+    private boolean mHasDockBattery;
 
     private int mPlugType;
     private int mLastPlugType = -1; // Extra state so we can detect first run
@@ -539,6 +545,9 @@ public final class BatteryService extends Binder {
             intent.putExtra(BatteryManager.EXTRA_DOCK_PRESENT, mDockBatteryPresent);
             intent.putExtra(BatteryManager.EXTRA_DOCK_STATUS, mDockBatteryStatus);
             intent.putExtra(BatteryManager.EXTRA_DOCK_LEVEL, mDockBatteryLevel);
+            intent.putExtra(BatteryManager.EXTRA_DOCK_STATUS, mDockBatteryStatus);
+            intent.putExtra(BatteryManager.EXTRA_DOCK_LEVEL, mDockBatteryLevel);
+            intent.putExtra(BatteryManager.EXTRA_DOCK_AC_ONLINE, false);
         }
 
         if (false) {

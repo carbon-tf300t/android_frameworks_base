@@ -65,6 +65,12 @@ public class BatteryManager {
     public static final String EXTRA_DOCK_LEVEL = "dock_level";
 
     /**
+     * Boolean field containing the current dock battery AC status.
+     * @hide
+     */
+    public static final String EXTRA_DOCK_AC_ONLINE = "dock_ac_online";
+    
+    /**
      * Extra for {@link android.content.Intent#ACTION_BATTERY_CHANGED}:
      * integer containing the maximum battery level.
      */
@@ -133,6 +139,19 @@ public class BatteryManager {
     public static final int DOCK_BATTERY_STATUS_CHARGING = 2;
     /** @hide */
     public static final int DOCK_BATTERY_STATUS_NOT_CHARGING = 4;
+    public static final int DOCK_STATE_UNKNOWN = 0;
+
+    /** @hide */
+    public static final int DOCK_STATE_UNDOCKED = 1;
+
+    /** @hide */
+    public static final int DOCK_STATE_CHARGING = 2;
+
+    /** @hide */
+    public static final int DOCK_STATE_DOCKED = 3;
+
+    /** @hide */
+    public static final int DOCK_STATE_DISCHARGING = 4;
 
     // values of the "plugged" field in the ACTION_BATTERY_CHANGED intent.
     // These must be powers of 2.
@@ -146,4 +165,8 @@ public class BatteryManager {
     /** @hide */
     public static final int BATTERY_PLUGGED_ANY =
             BATTERY_PLUGGED_AC | BATTERY_PLUGGED_USB | BATTERY_PLUGGED_WIRELESS;
+
+    public static final String EXTRA_DOCK_PRESENT = "dock_present";
+    
+    public static final String EXTRA_DOCK_PLUGGED = "dock_plugged";
 }
